@@ -2,14 +2,12 @@
 
 # Traité de la tabula: HTML (and maybe PDF?) generator for Markdown
 # documentation in a "tabula-style".
-# A mere hack, I am not sure if this will work in the end.
 
-
-# Include the configuration file.
+# Include the global configuration file.
 . /usr/etc/traite.conf
 
 # Include some libraries that we will be using. 
-. "${ADDERE}"/posix-alt.shi
+. "${ADDERE}/posix-alt.shi"
 
 # Cuz We're real
 documents="$(realpath "$DOCUMENTS")"
@@ -18,11 +16,12 @@ www_output_directory="$(realpath "$WWW_DIRECTORY")"
 # This will be used when we will generate a custom HTML footer for the document
 # in question.
 
-ksh_version=${.sh.version}
-pandoc_version=$(pandoc -v | sed 1q)
-kernel_name=$(uname -s)
-kernel_release=$(uname -r)
-machine_host=$(uname -n)
+traite_version='0.1-a'
+ksh_version="${.sh.version}"
+pandoc_version="$(pandoc -v | sed 1q)"
+kernel_name="$(uname -s)"
+kernel_release="$(uname -r)"
+machine_host="$(uname -n)"
 
 function main {
 	generate_html_documents
@@ -34,7 +33,7 @@ function generate_html_documents {
 	docdir=( $(cd "$documents"; echo *) )
 	output="${OUTPUT:-index.html}"
 	owd="$PWD"
-	current_time=$(date +%F)
+	current_time="$(date +%F)"
 
 	for ((i=0; i < $(n ${docdir[@]}); i++)); do
 		# First of all: check if tabula.conf exist in all the
@@ -62,20 +61,21 @@ function generate_html_documents {
 		       	"$deploy_directory"
 		test -d "$deploy_directory" -a -w "$deploy_directory" \
 			|| mkdir -pv "$deploy_directory" 2>&1 | tee "$LOG"
+		
 		cd "$deploy_directory" \
 		&& printL 'ACTION: Entered directory %s\n' "$deploy_directory"
-		
+		echo "$USE_FOOTER" | grep -i '^y' && generate_html_footer
 		printL 'ACTION: Compiling documentation\n'
 		md2html "${realfiles[@]}" "$deploy_directory/$output" "$title" \
 			"$lang"
 		
 		# Go back to that same old place...
-	        # Oh, sweet home old working directory
+	        # Oh, sweet home old working directory!
 		cd "$owd"
 	done
 }
 
-# Just a boilerplate for calling Pandoc, of course
+# Just a boilerplate for calling Pandoc, of course.
 function md2html {
 	echo "$PWD" $1 $2 $3
 	files="$1"
@@ -87,15 +87,33 @@ function md2html {
 			--metadata lang="$lang"\
 		"$files" \
 		--output "$output" \
+		--table-of-contents \
 		-s --pdf-engine="${pdfengine:-xelatex}" \
 		--verbose \
 		${pandoc_opts[@]} \
 		2>&1 | tee "$LOG"
 }
 
-#function generate_html_footer {
-#	tempfooter=$(mktemp footer.XXXXXX.html)
-#}
+function generate_html_footer {
+	# I really hope all this works.
+	footer="$(realpath "$FOOTER")"
+	tmpfooter="$(mktemp footer.XXXXXX.html)"
+ 	printL \
+	'ACTION: Generating a footer for the final HTML at %s, using %s as a base' \
+	"$tmpfooter" "$footer"
+
+	sed -e "s/%%author%%/$author/" \
+	-e "s/%%project%%/$project/" \
+	-e "s/%%copyright_year%%/$copyright_year/" \
+	-e "s/%%date%%/$date/" \
+	-e "s/%%pandoc_version%%/$pandoc/" \
+	-e "s/%%ksh_version%%/$ksh_version/" \
+	-e "s/%%machine_host%%/$machine_host/" \
+       	-e "s/%%kernel_name%%/$kernel_name/" \
+	-e "s/%%kernel_release%%/$kernel_release/" < "$footer" > "$tmpfooter"
+
+	pandoc_opts+="-A "$tmpfooter""
+}
 
 # printL - print to log
 # I did not put this into another file (library) because I don't think it's
