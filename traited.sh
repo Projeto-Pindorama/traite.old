@@ -4,7 +4,7 @@
 # documentation in a "tabula-style".
 
 # Include the global configuration file.
-. /tmp/traite.conf
+. /usr/etc/traite.conf
 
 # Include some libraries that we will be using. 
 . "${ADDERE}/posix-alt.shi"
