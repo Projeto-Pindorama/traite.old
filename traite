@@ -61,7 +61,7 @@ function generate_html_documents {
 
 		# Determine absolute paths for files listed in tabula.conf
 		for ((j=0; j < $(n ${files[@]}); j++)); do
-			realfiles+=$(realpath "${files[$j]}")
+			realfiles+="$(realpath "${files[$j]}")"
 		done
 		printL 'ACTION: realpath'\''d files.\n'
 		printL 'INFO:\nOriginal files: %s\nrealpath'\''d files: %s\n' \
