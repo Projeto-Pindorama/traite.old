@@ -21,6 +21,8 @@ docdir=( $(cd "$documents"; echo *) )
 # This will be used when we will generate a custom HTML footer for the document
 # in question.
 
+# Except for this one, which will only be used in print_help()
+program_name="$0"
 traite_version='0.1-a'
 ksh_version="${.sh.version}"
 pandoc_version="$(pandoc -v | sed 1q)"
@@ -29,7 +31,14 @@ kernel_release="$(uname -r)"
 machine_host="$(uname -n)"
 
 function main {
-	generate_html_documents
+	# Non-UNIX(?) command-line options. Not using getopt() for now, maybe in
+	# the future.
+	action="$1"
+	case "$action" in
+		build) generate_html_documents ;;
+		nuke) nuke_html_documents ;;
+		*|help) print_help ;;
+	esac
 }
 
 function generate_html_documents {
@@ -69,8 +78,7 @@ function generate_html_documents {
 		md2html "${realfiles[@]}" "$deploy_directory/$output" "$title" \
 			"$lang"
 		
-		# Go back to that same old place...
-	        # Oh, sweet home old working directory!
+		# Go back to that same old working place...
 		cd "$owd"
 	done
 }
@@ -78,7 +86,12 @@ function generate_html_documents {
 function nuke_html_documents {
 	# This function shall clean a specific directory that already contains
 	# a built tabula --- in other words, that is already in HTML.
-	return 0 # TODO: A safe rm'ng of files at $www_output_dir.
+	return 1 # TODO: A safe rm'ng of files at $www_output_dir.
+}
+
+function print_help {
+	printf 'usage: %s build\n       %s nuke [tabula name...]\n' \
+		$program_name $program_name 1>&2
 }
 
 # Just a boilerplate for calling Pandoc, of course.
