@@ -86,12 +86,13 @@ function generate_html_documents {
 function nuke_html_documents {
 	# This function shall clean a specific directory that already contains
 	# a built tabula --- in other words, that is already in HTML.
-	return 1 # TODO: A safe rm'ng of files at $www_output_dir.
+	return 3 # TODO: A safe rm'ng of files at $www_output_dir.
 }
 
 function print_help {
 	printf 'usage: %s build\n       %s nuke [tabula name...]\n' \
 		$program_name $program_name 1>&2
+	return 1
 }
 
 # Just a boilerplate for calling Pandoc, of course.
