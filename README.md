@@ -46,9 +46,7 @@ The simple diagram below explains how this program works (click on it to see it
 larger and with colours (92.0K)).  
 |[![](img/how_it_works_diagram.dithered.png)](img/how_it_works_diagram.png)|
 |:--:|
-| Captions:<br/>Blue arrows/lines: Information and or descriptions of what is
-being shown;<br/>Black arrows/lines: Flow of files/pipelines between parts of
-the program.|
+| Captions:<br/>Blue arrows/lines: Information and or descriptions of what is being shown;<br/>Black arrows/lines: Flow of files/pipelines between parts of the program.|
 
 ## Dependencies
 
