@@ -46,7 +46,33 @@ The simple diagram below explains how this program works (click on it to see it
 larger and with colours (92.0K)).  
 |[![](img/how_it_works_diagram.dithered.png)](img/how_it_works_diagram.png)|
 |:--:|
-| Captions:<br/>Blue arrows/lines: Information and or descriptions of what is being shown;<br/>Black arrows/lines: Flow of files/pipelines between parts of the program.|
+| Captions:<br/>Blue arrows/lines: Information and or descriptions of what is being shown;<br/>Black arrows/lines: Flow of files/pipelines between parts of the program.|  
+
+Traité works basically as a front-end for Pandoc, but adding some handy
+--- but simple --- functionalities, such as configuration files for generating
+HTML documents instead of running everything manually --- the so-called
+``tabula.conf``.  
+
+The ``tabula.conf`` file is present at the root of every *tabula*, it contains
+basic metadata information and, the most important: a sorted (from the start to
+the end of the document) array containing all the Markdown files that will be
+compiled to a HTML.  
+
+This is a very simple example:  
+```sh
+files=( prologue.md ch1.md ch2.md \
+	ch3.md ch4.md ) 
+```
+
+In the case above, we will be compiling the files ``prologue.md``, ``ch1.md`` up
+to ``ch4.md`` into a standalone HTML file, and it will have the final contents
+sorted in the order provided --- if we mess up and put, hipotetically,
+``ch2.md`` before ``ch1.md``, we will end up with the ``ch2.md`` contents before
+``ch1.md``, so take care.
+
+The other information is used for ``--metadata`` arguments at Pandoc and for
+generating the HTML footer with ``sed`` later. You can read the code and see
+where these information is used, if you have any questions about it.   
 
 ## Dependencies
 
@@ -54,6 +80,10 @@ larger and with colours (92.0K)).
 - sed;
 - Pandoc;
 - XeTeX
+
+## Who can I blame for it?
+
+I, who speaks to you, Luiz Antônio (a.k.a ``takusuman``).
 
 ## Licence
 
