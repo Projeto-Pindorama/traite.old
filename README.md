@@ -83,7 +83,7 @@ where these information is used, if you have any questions about it.
 
 ## Who can I blame for it?
 
-I, who speaks to you, Luiz Antônio (a.k.a ``takusuman``).
+Me, who speaks to you, Luiz Antônio (a.k.a ``takusuman``).
 
 ## Licence
 
