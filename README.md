@@ -76,10 +76,53 @@ where these information is used, if you have any questions about it.
 
 ## Dependencies
 
-- KSH-93;
-- sed;
-- Pandoc;
-- XeTeX
+* KSH-93;
+* sed;
+* Pandoc;
+* XeTeX
+
+## Chip in!
+
+If you are willing to contribute, by implementing a new feature --- currently we
+are needing custom CSS support, that shall not be hard to implement since it is
+similar to custom HTML footer support ---, fixing bugs or cleaning up the code,
+go ahead!  
+We are open for pull-requests, as long it is useful for the project.  
+Please, just note that we are using the [Conventional
+Commits](http://conventionalcommits.org) specification, so try to keep your
+commits under it. ``;^)``
+
+### Hacking
+
+Although Traité was made just in two days, its code is fairly readable even for
+ones who does not actually code in Shell script. After around three years of
+experience, I have been able to keep a consistent and sane code-style.  
+
+Good references for learning Korn Shell are O'Reilly's "Learning the Korn Shell,
+2nd Edition" and, for Portuguese speakers, "Programação Shell Linux" --- that
+tries to cover all the UNIX shells and its differences, from GNU Broken-Again
+Shell to even the (crappy) POSIX standard.  
+
+"Learning the Korn Shell" is a paid book --- but I have heard it from the
+grapevine that it can be found for free in some website from Ukraine, the domain
+name rhymes with "milk".  
+"Programação Shell Linux" is also a paid book --- but I also have heard that a
+fairly older version, from around 2010, can also be found in some website whose
+name rhymes with "doceiro" (a Portuguese word for "confectioner").
+
+### Other projects intrinsically related to TDLT that you may want to chip in (just in case you do not hack with Shell)
+
+* [Silicon Tabula](https://github.com/Projeto-Pindorama/Silicon-Tabula) - All
+  the Pindorama project *tabulas* (documentation), compiled in one repository;
+* [acme4real](https://github.com/takusuman/acme4real#screenshots-pandoc-port) -
+A Vim colorscheme heavly inspired by ``acme``(1) by Rob Pike, but with actual
+syntax highlighting (Pandoc port);
+* [Pandoc Goodies](https://github.com/tajmone/pandoc-goodies) - A teasure-box of
+  resources for Pandoc, PP and Texts word processor;
+* [Pandoc](https://pandoc.org) - A universal document converter;
+* [XeTeX](http://xetex.sourceforge.net) - Unicode-based TEX;
+* [ksh93](http://www.kornshell.com) - The KornShell Command And Programming
+Language;
 
 ## Who can I blame for it?
 
