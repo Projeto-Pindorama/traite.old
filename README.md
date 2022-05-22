@@ -79,7 +79,7 @@ where these information is used, if you have any questions about it.
 * KSH-93;
 * sed;
 * Pandoc;
-* XeTeX
+* XeTeX.
 
 ## Chip in!
 
@@ -122,7 +122,7 @@ syntax highlighting (Pandoc port);
 * [Pandoc](https://pandoc.org) - A universal document converter;
 * [XeTeX](http://xetex.sourceforge.net) - Unicode-based TEX;
 * [ksh93](http://www.kornshell.com) - The KornShell Command And Programming
-Language;
+Language.
 
 ## Who can I blame for it?
 
