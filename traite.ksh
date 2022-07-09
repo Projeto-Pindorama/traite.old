@@ -18,6 +18,9 @@ www_output_directory="$(realpath "$WWW_DIRECTORY")"
 # This probably isn't bad-name safe, be aware.
 docdir=( $(cd "$documents"; echo *) )
 
+# Get the current time, for the log file.
+current_time="$(date '+%Y-%m-%d %H.%M.%S')"
+
 # This will be used when we will generate a custom HTML footer for the document
 # in question.
 
@@ -36,7 +39,7 @@ function main {
 	action="$1"
 	case "$action" in
 		build) generate_html_documents ;;
-		nuke) nuke_html_documents ;;
+		nuke) nuke_html_documents $2;;
 		*|help) print_help ;;
 	esac
 }
@@ -44,7 +47,6 @@ function main {
 function generate_html_documents {
 	output="${OUTPUT:-index.html}"
 	owd="$PWD"
-	current_time="$(date +%F)"
 
 	for ((i=0; i < $(n ${docdir[@]}); i++)); do
 		# First of all: check if tabula.conf exist in all the
@@ -71,9 +73,13 @@ function generate_html_documents {
 		printL 'ACTION: Creating directory %s for the compiled files\n' \
 		       	"$deploy_directory"
 		test -d "$deploy_directory" -a -w "$deploy_directory" \
-			|| mkdir -pv "$deploy_directory" 2>&1 | tee "$LOG"
+			|| { mkdir -pv "$deploy_directory" 2>&1 | tee "$LOG" }
+	
+		{ echo "$USE_EXTERNAL_CSS" | grep -i '^y' 1>&2 } \
+			&& pandoc_opts+="-c "$EXTERNAL_CSS""
+		{ echo "$USE_FOOTER" | grep -i '^y' 1>&2 } \
+			&& generate_html_footer
 		
-		echo "$USE_FOOTER" | grep -i '^y' && generate_html_footer
 		printL 'ACTION: Compiling documentation\n'
 		md2html "${realfiles[@]}" "$deploy_directory/$output" "$title" \
 			"$lang"
@@ -86,7 +92,10 @@ function generate_html_documents {
 function nuke_html_documents {
 	# This function shall clean a specific directory that already contains
 	# a built tabula --- in other words, that is already in HTML.
-	return 3 # TODO: A safe rm'ng of files at $www_output_dir.
+	printL 'NUKE: Nuking %s, which is expected to be present at %s\n' \
+		"$2" "$www_output_directory/$2"
+	find "$www_output_directory/$2" -type f -name '*.htm?' \
+		-exec rm -iv {} \;
 }
 
 function print_help {
