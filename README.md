@@ -83,14 +83,20 @@ where these information is used, if you have any questions about it.
 
 ## Chip in!
 
-If you are willing to contribute, by implementing a new feature --- currently we
-are needing custom CSS support, that shall not be hard to implement since it is
-similar to custom HTML footer support ---, fixing bugs or cleaning up the code,
-go ahead!  
+If you are willing to contribute, by implementing a new feature, fixing bugs
+or cleaning up the code, go ahead!  
 We are open for pull-requests, as long it is useful for the project.  
 Please, just note that we are using the [Conventional
 Commits](http://conventionalcommits.org) specification, so try to keep your
 commits under it. ``;^)``
+
+### TODO
+
+Currently, we are looking for these features:
+
+* Multi-language/Translation support (maybe à lá MkDocs?);
+* Safer (and possibly more complex) ``nuke`` function, that deals correctly with
+  the new translation feature. 
 
 ### Hacking
 
