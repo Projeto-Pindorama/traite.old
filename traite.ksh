@@ -4,7 +4,7 @@
 # documentation in a "tabula-style".
 
 # Include the global configuration file.
-. $HOME/.local/lib/traite.conf
+. /usr/etc/traite.conf
 
 # Include some libraries that we will be using. 
 . "${ADDERE}/posix-alt.shi"
@@ -124,7 +124,7 @@ function md2html {
 		-s --self-contained \
 		--pdf-engine="${pdfengine:-xelatex}" \
 		--verbose \
-		${pandoc_opts[*]} \
+		${pandoc_opts[@]} \
 		2>&1 | tee "$LOG"
 }
 
