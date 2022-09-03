@@ -10,7 +10,7 @@ indirectly, [XeTeX](https://tug.org/xetex/) as the default (La)TeX engine.
 
 ### Why is the name in French?
 
-The name originates from the optics book "*Traité de la lumière: Où Sont
+The name comes from the optics book "*Traité de la lumière: Où Sont
 Expliquées les Causes de ce qui Luy Arrive Dans la Reflexion & Dans la
 Refraction*" (or, in short, "*Traité de la lumière*"), written by the Dutch
 polymath Christiaan Huygens and published in 1690 in the French language.
@@ -101,8 +101,8 @@ Currently, we are looking for these features:
 ### Hacking
 
 Although Traité was made just in two days, its code is fairly readable even for
-ones who does not actually code in Shell script. After around three years of
-experience, I have been able to keep a consistent and sane code-style.  
+people who do not actually code in Shell script. After around three years of
+experience, I was able to keep a consistent and sane coding style.  
 
 Good references for learning Korn Shell are O'Reilly's "Learning the Korn Shell,
 2nd Edition" and, for Portuguese speakers, "Programação Shell Linux" --- that
