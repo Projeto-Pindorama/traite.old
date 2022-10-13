@@ -66,7 +66,7 @@ function generate_html_documents {
 
 		# Determine absolute paths for files listed in tabula.conf
 		for ((j=0; j < $(n ${files[@]}); j++)); do
-			realfiles+="$(realpath "${files[$j]}")"
+			realfiles+=" $(realpath "${files[$j]}")"
 		done
 		printL 'ACTION: realpath'\''d files.\n'
 		printL 'INFO:\nOriginal files: %s\nrealpath'\''d files: %s\n' \
@@ -111,17 +111,19 @@ function print_help {
 
 # Just a boilerplate for calling Pandoc, of course.
 function md2html {
-	files="$1"
+	# It must have a better way of doing this.
+	files=( $(echo $1) )
 	output="$2"
 	title="$3"
 	lang="$4"
 	pandoc --highlight-style="$THEME" \
 		--metadata title="$title" \
 			--metadata lang="$lang"\
-		"$files" \
+		${files[@]} \
 		--output "$output" \
 		--table-of-contents \
 		-s --self-contained \
+		--file-scope \
 		--pdf-engine="${pdfengine:-xelatex}" \
 		--verbose \
 		${pandoc_opts[@]} \
