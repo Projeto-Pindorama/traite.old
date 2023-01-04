@@ -1,3 +1,11 @@
+# Deprecation note
+
+Traité is not going to be maintained or fixed anymore, since Silicon Tabula is
+slowly moving to the Hugo framework with a set of configuration also called
+``traite``.  
+So, this repository is going to be archived and renamed as ``traite.old``.  
+However, feel free to fork and continue the work, it's open! :^)
+
 ![](img/logo.png) 
 
 ## What is it?
